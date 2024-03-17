@@ -3,7 +3,7 @@ using ScrapingAppDefinitions;
 using ScrapingAppDefinitions.Models;
 using ScrapingBackend.Models;
 
-namespace ScrapingBackend
+namespace ScrapingBackend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -44,7 +44,8 @@ namespace ScrapingBackend
             }
 
         }
-        [HttpPost("/update")]
+        [HttpPost]
+        [Route("update")]
         public async Task<IActionResult> Update([FromBody] SearchProvider provider)
         {
             try

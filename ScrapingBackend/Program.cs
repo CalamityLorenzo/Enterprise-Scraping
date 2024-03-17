@@ -1,6 +1,7 @@
 
 using DbService;
 using Microsoft.EntityFrameworkCore;
+using ScrapingAppDefinitions;
 
 namespace ScrapingBackend
 {
@@ -20,7 +21,7 @@ namespace ScrapingBackend
             builder.Services.AddSwaggerGen();
 
             builder.Services.AddDbContext<AppDbContext>(options => options.UseLazyLoadingProxies().UseSqlServer(builder.Configuration["DbConn"]));
-
+            builder.Services.AddScoped<IDbService, DbRepository>();
             if (!String.IsNullOrEmpty(builder.Configuration["ApplicationInsightsConn"]))
             {
                 builder.Logging.AddApplicationInsights(

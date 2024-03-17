@@ -3,19 +3,20 @@ using ScrapingAppDefinitions;
 using ScrapingAppDefinitions.Models;
 using ScrapingBackend.Models;
 
-namespace ScrapingBackend
+namespace ScrapingBackend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class SearchesController(ILogger<SearchesController> logger, IDbService dbService) : ControllerBase
     {
         [HttpGet]
-        public async Task<IActionResult> GetAll(EntityIdModel profileId)
+        [Route("{profileId}")]
+        public async Task<IActionResult> GetSearchesForProfile(Guid profileId)
         {
             try
             {
                 logger.LogInformation($"{nameof(SearchesController)} GetAll");
-                var profiles = dbService.Searches.GetAll(profileId.Value);
+                var profiles = dbService.Searches.GetAll(profileId);
                 return new OkObjectResult(profiles);
             }
 
@@ -44,7 +45,8 @@ namespace ScrapingBackend
             }
 
         }
-        [HttpPost("/update")]
+        [HttpPost]
+        [Route("update")]
         public async Task<IActionResult> Update([FromBody] UserSearch userSearch)
         {
             try
