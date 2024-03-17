@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ScrapingAppDefinitions;
 using ScrapingAppDefinitions.Models;
+using ScrapingAppDefinitions.ResultType;
 using ScrapingBackend.Models;
 
 namespace ScrapingBackend.Controllers
@@ -15,8 +16,8 @@ namespace ScrapingBackend.Controllers
             try
             {
                 logger.LogInformation($"{nameof(ProvidersController)} GetAll");
-                var profiles = dbService.Providers.GetAll();
-                return new OkObjectResult(profiles);
+                var provider = await dbService.Providers.GetAll();
+                return new OkObjectResult(provider.Value);
             }
 
             catch (Exception ex)
@@ -27,6 +28,28 @@ namespace ScrapingBackend.Controllers
 
         }
 
+        [HttpGet]
+        [Route("{providerId}")]
+        public async Task<IActionResult> Get(Guid providerId)
+        {
+            try
+            {
+                logger.LogInformation($"{nameof(ProfilesController)} Get {providerId}");
+                var provider = await dbService.Providers.Get(providerId);
+
+                return provider.IsSuccess ?
+                    new OkObjectResult(provider.Value)
+                    : StatusCode(500, provider.ErrorMessage);
+
+
+            }
+            catch (Exception ex)
+            {
+                logger.LogCritical($"{nameof(ProfilesController)} Get  {providerId}", ex);
+                return StatusCode(500, ex.Message);
+            }
+        }
+
         [HttpPost]
         public async Task<IActionResult> Add([FromBody] SearchProvider provider)
         {
@@ -34,7 +57,7 @@ namespace ScrapingBackend.Controllers
             {
                 logger.LogInformation($"{nameof(ProvidersController)} Add");
                 var newProfile = await dbService.Providers.Create(provider);
-                return new OkObjectResult(newProfile);
+                return new OkObjectResult(newProfile.Value);
             }
 
             catch (Exception ex)
@@ -51,8 +74,11 @@ namespace ScrapingBackend.Controllers
             try
             {
                 logger.LogInformation($"{nameof(ProvidersController)} Update");
-                var newProfile = await dbService.Providers.Update(provider);
-                return new OkObjectResult(newProfile);
+                var result = await dbService.Providers.Update(provider);
+                if (!result.IsSuccess)
+                    return StatusCode(500, result.ErrorMessage);
+                else
+                    return Ok(result.Value);
             }
 
             catch (Exception ex)
@@ -70,8 +96,12 @@ namespace ScrapingBackend.Controllers
             try
             {
                 logger.LogInformation($"{nameof(ProvidersController)} Delete");
-                var newProfile = await dbService.Providers.Delete(providerId.Value);
-                return new OkObjectResult(newProfile);
+                var result = await dbService.Providers.Delete(providerId.Value);
+                if(result is ResultError error)
+                    return StatusCode(500, error.ErrorMessage);
+                else
+                    return Ok();
+                
             }
             catch (Exception ex)
             {

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ScrapingAppDefinitions;
 using ScrapingAppDefinitions.Models;
+using ScrapingAppDefinitions.ResultType;
 using ScrapingBackend.Models;
 
 namespace ScrapingBackend.Controllers
@@ -16,8 +17,8 @@ namespace ScrapingBackend.Controllers
             try
             {
                 logger.LogInformation($"{nameof(SearchesController)} GetAll");
-                var profiles = dbService.Searches.GetAll(profileId);
-                return new OkObjectResult(profiles);
+                var profiles = await dbService.Searches.GetAll(profileId);
+                return new OkObjectResult(profiles.Value);
             }
 
             catch (Exception ex)
@@ -34,8 +35,13 @@ namespace ScrapingBackend.Controllers
             try
             {
                 logger.LogInformation($"{nameof(SearchesController)} Add");
-                var newProfile = await dbService.Searches.Create(userSearch);
-                return new OkObjectResult(newProfile);
+                var result = await dbService.Searches.Create(userSearch);
+                if (result.IsSuccess)
+                    return Ok(result.Value);
+                else
+                {
+                    return StatusCode(500, result.ErrorMessage);
+                }
             }
 
             catch (Exception ex)
@@ -52,8 +58,11 @@ namespace ScrapingBackend.Controllers
             try
             {
                 logger.LogInformation($"{nameof(SearchesController)} Update");
-                var newProfile = await dbService.Searches.Update(userSearch);
-                return new OkObjectResult(newProfile);
+                var result = await dbService.Searches.Update(userSearch);
+                if (!result.IsSuccess)
+                    return StatusCode(500, result.ErrorMessage);
+                else
+                    return Ok(result.Value);
             }
 
             catch (Exception ex)
@@ -71,8 +80,12 @@ namespace ScrapingBackend.Controllers
             try
             {
                 logger.LogInformation($"{nameof(SearchesController)} Delete");
-                var newProfile = await dbService.Searches.Delete(providerId.Value);
-                return new OkObjectResult(newProfile);
+                var result = await dbService.Searches.Delete(providerId.Value);
+                // We always blame ourselves with the processing :(
+                if (result is ResultError error)
+                    return StatusCode(500, error.ErrorMessage);
+                else
+                    return Ok();
             }
             catch (Exception ex)
             {

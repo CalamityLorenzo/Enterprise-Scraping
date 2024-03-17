@@ -1,6 +1,8 @@
 ﻿using DbService.DbModels;
+using Microsoft.EntityFrameworkCore;
 using ScrapingAppDefinitions;
 using ScrapingAppDefinitions.Models;
+using ScrapingAppDefinitions.ResultType;
 
 namespace DbService.Repositories
 {
@@ -9,7 +11,18 @@ namespace DbService.Repositories
         public DBSearchProviderService(AppDbContext dbContext, Func<DbSearchProvider, SearchProvider> convertToModel, Func<SearchProvider, DbSearchProvider> convertToDb, string reportingName) : base(dbContext, convertToModel, convertToDb, reportingName)
         {
         }
-        public IEnumerable<SearchProvider> GetAll() => this._ctx.SearchProviders.Select(ConvertToModel).ToList();
+        public async Task<Result<IEnumerable<SearchProvider>>> GetAll()
+        {
+            try
+            {
+                var providers = await this._ctx.SearchProviders.ToListAsync();
+                return new Result<IEnumerable<SearchProvider>>(providers.Select(ConvertToModel).ToList());
+            }
+            catch (Exception ex)
+            {
+                return new Result<IEnumerable<SearchProvider>>($"GetAll {nameof(ReportingName)} : failed \n{ex.Message}");
+            }
+        }
 
 
         internal static SearchProvider ConvertToModel(DbSearchProvider dbProvider) => new SearchProvider(dbProvider.Id, dbProvider.Name, dbProvider.Base64Image, dbProvider.BaseUrl);

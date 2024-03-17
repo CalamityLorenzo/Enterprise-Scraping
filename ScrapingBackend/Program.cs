@@ -20,7 +20,8 @@ namespace ScrapingBackend
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            builder.Services.AddDbContext<AppDbContext>(options => options.UseLazyLoadingProxies().UseSqlServer(builder.Configuration["DbConn"]));
+            builder.Services.AddDbContext<AppDbContext>(options => options.UseLazyLoadingProxies()
+                                                                   .UseSqlServer(builder.Configuration["DbConn"]));
             builder.Services.AddScoped<IDbService, DbRepository>();
             if (!String.IsNullOrEmpty(builder.Configuration["ApplicationInsightsConn"]))
             {

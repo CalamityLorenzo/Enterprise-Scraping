@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ScrapingAppDefinitions;
 using ScrapingAppDefinitions.Models;
+using ScrapingAppDefinitions.ResultType;
 using ScrapingBackend.Models;
 
 namespace ScrapingBackend.Controllers
@@ -27,14 +28,39 @@ namespace ScrapingBackend.Controllers
 
         }
 
+        [HttpGet]
+        [Route("{profileId}")]
+        public async Task<IActionResult> Get(Guid profileId)
+        {
+            try
+            {
+                logger.LogInformation($"{nameof(ProfilesController)} Get {profileId}");
+                var userProfile = await dbService.Profiles.Get(profileId);
+
+                return userProfile.IsSuccess ?
+                    new OkObjectResult(userProfile.Value)
+                    : StatusCode(500, userProfile.ErrorMessage);
+
+
+            }
+            catch (Exception ex)
+            {
+                logger.LogCritical($"{nameof(ProfilesController)} Get  {profileId}", ex);
+                return StatusCode(500, ex.Message);
+            }
+        }
+
         [HttpPost]
         public async Task<IActionResult> Add([FromBody] UserProfile userprofile)
         {
             try
             {
                 logger.LogInformation($"{nameof(ProfilesController)} Add");
-                var newProfile = await dbService.Profiles.Create(userprofile);
-                return new OkObjectResult(newProfile);
+                var result = await dbService.Profiles.Create(userprofile);
+                if (!result.IsSuccess)
+                    return StatusCode(500, result.ErrorMessage);
+                else
+                    return Ok(result.Value);
             }
 
             catch (Exception ex)
@@ -44,7 +70,7 @@ namespace ScrapingBackend.Controllers
             }
 
         }
-     
+
         [HttpPost]
         [Route("update")]
         public async Task<IActionResult> Update([FromBody] UserProfile userprofile)
@@ -52,8 +78,11 @@ namespace ScrapingBackend.Controllers
             try
             {
                 logger.LogInformation($"{nameof(ProfilesController)} Update");
-                var newProfile = await dbService.Profiles.Update(userprofile);
-                return new OkObjectResult(newProfile);
+                var result = await dbService.Profiles.Update(userprofile);
+                if (!result.IsSuccess)
+                    return StatusCode(500, result.ErrorMessage);
+                else
+                    return Ok(result.Value);
             }
 
             catch (Exception ex)
@@ -72,7 +101,13 @@ namespace ScrapingBackend.Controllers
             {
                 logger.LogInformation($"{nameof(ProfilesController)} Delete");
                 var newProfile = await dbService.Profiles.Delete(profileId.Value);
-                return new OkObjectResult(newProfile);
+                // See Providers controller for pattern match approach
+                if (newProfile.IsSuccess)
+                    return Ok();
+                else
+                {
+                    return StatusCode(500, ((ResultError)newProfile).ErrorMessage);
+                }
             }
 
             catch (Exception ex)

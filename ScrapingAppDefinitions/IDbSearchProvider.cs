@@ -5,7 +5,8 @@ namespace ScrapingAppDefinitions
 {
     public interface IDbSearchProvider
     {
-        IEnumerable<SearchProvider> GetAll();
+        Task<Result<IEnumerable<SearchProvider>>> GetAll();
+        Task<Result<SearchProvider>> Get(Guid providerId);
         Task<Result<SearchProvider>> Create(SearchProvider provider);
         Task<Result<SearchProvider>> Update(SearchProvider provider);
         Task<Result> Delete(Guid Id);

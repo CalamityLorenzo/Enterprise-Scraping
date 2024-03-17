@@ -1,6 +1,139 @@
 @ScrapingBackend_HostAddress = http://localhost:5195
 
-GET {{ScrapingBackend_HostAddress}}/weatherforecast/
+# @name allProfiles
+GET {{ScrapingBackend_HostAddress}}/api/profiles
 Accept: application/json
+
+###
+@profileId = {{allProfiles.response.body.$[1].id}}
+GET {{ScrapingBackend_HostAddress}}/api/profiles/{{profileId}}
+Accept: application/json
+
+###
+
+# @name newProfile
+Post {{ScrapingBackend_HostAddress}}/api/profiles
+Accept: application/json
+Content-Type: application/json
+
+{
+  "Name": "Derek"
+}
+###
+@idToken = {{newProfile.response.body.id}}
+Post {{ScrapingBackend_HostAddress}}/api/profiles/update
+Accept: application/json
+Content-Type: application/json
+
+{
+  "Id": "{{idToken}}",
+  "Name": "Henry"
+}
+###
+
+DELETE {{ScrapingBackend_HostAddress}}/api/profiles
+Accept: application/json
+Content-Type: application/json
+
+{
+  "Value": "{{idToken}}"
+}
+
+###
+## PROVIDERS
+
+# @name allProviders
+GET {{ScrapingBackend_HostAddress}}/api/providers
+Accept: application/json
+
+
+###
+@providerId = {{allProviders.response.body.$[3].id}}
+GET {{ScrapingBackend_HostAddress}}/api/providers/{{providerId}}
+Accept: application/json
+
+###
+
+# @name newProvider
+Post {{ScrapingBackend_HostAddress}}/api/providers
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "Beep Boop",
+  "base64Image": "BASE64:BasicString",
+  "baseUrl": "https://basicString"
+}
+###
+@idToken = {{newProvider.response.body.id}}
+Post {{ScrapingBackend_HostAddress}}/api/providers/update
+Accept: application/json
+Content-Type: application/json
+
+{
+  "Id": "{{idToken}}",
+  "Name": "The basics of change",
+ "base64Image": "BASE64:BasicString",
+ "baseUrl": "https://duckforDinner.com"
+}
+###
+
+DELETE {{ScrapingBackend_HostAddress}}/api/providers
+Accept: application/json
+Content-Type: application/json
+
+{
+  "Value": "{{idToken}}"
+}
+
+###
+## SeaRCHES
+
+
+
+# @name allSearchesForProfile
+GET {{ScrapingBackend_HostAddress}}/api/searches/{{profileId}}
+Accept: application/json
+
+
+###
+
+# @name newSearches
+Post {{ScrapingBackend_HostAddress}}/api/searches
+Accept: application/json
+Content-Type: application/json
+
+ {
+    "profileId": "{{profileId}}",
+     "profileName": "",
+    "providerName": "",
+    "providerId": "39030d94-4ca9-44ee-9046-08dc460a6249",
+    "searchTerms": "Crash talk",
+    "positions": "9"
+  }
+###
+@idToken = {{newSearches.response.body.id}}
+Post {{ScrapingBackend_HostAddress}}/api/searches/update
+Accept: application/json
+Content-Type: application/json
+
+{
+    "id":"{{idToken}}",
+    "profileId": "{{profileId}}",
+     "profileName": "",
+    "providerName": "",
+    "providerId": "39030d94-4ca9-44ee-9046-08dc460a6249",
+    "searchTerms": "What a wally",
+    "positions": "47"
+}
+###
+
+DELETE {{ScrapingBackend_HostAddress}}/api/searches
+Accept: application/json
+Content-Type: application/json
+
+{
+  "Value": "{{idToken}}"
+}
 
 ###

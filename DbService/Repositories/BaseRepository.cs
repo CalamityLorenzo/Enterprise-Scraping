@@ -28,14 +28,14 @@ namespace DbService.Repositories
         {
             if (Id == Guid.Empty)
             {
-                return new Result<AppModel>("Id must be complete");
+                return new Result<AppModel>("Id must not be empty");
             }
             try
             {
-                var result = await _ctx.Set<DbModel>().FindAsync(Id);
+                var result = await _ctx.Set<DbModel>().AsNoTracking().Where(a=>a.Id == Id).FirstAsync();
                 if (result == null)
                 {
-                    return new Result<AppModel>("No Search provider found");
+                    return new Result<AppModel>($"{nameof(AppModel)} {Id} not found");
                 }
 
                 return new Result<AppModel>(ConvertToModel(result));
@@ -43,7 +43,7 @@ namespace DbService.Repositories
             }
             catch (Exception ex)
             {
-                return new Result<AppModel>($"Get {nameof(ReportingName)} : {Id} failed \n{ex.Message}");
+                return new Result<AppModel>($"Get {nameof(Result<AppModel>)} : {Id} failed \n{ex.Message}");
             }
         }
 
@@ -58,9 +58,10 @@ namespace DbService.Repositories
                 try
                 {
                     DbModel dbProvider = ConvertToDb(provider);
-                    var addedProvider = await this._ctx.Set<DbModel>().AddAsync(dbProvider);
+                    var addedProvider = this._ctx.Set<DbModel>().Add(dbProvider);
                     await this._ctx.SaveChangesAsync();
-                    return new Result<AppModel>(ConvertToModel(addedProvider.Entity));
+                    this._ctx.ChangeTracker.Clear();
+                    return await Get(addedProvider.Entity.Id);
                 }
                 catch (Exception ex)
                 {
