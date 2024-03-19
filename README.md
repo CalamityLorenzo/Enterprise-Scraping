@@ -13,9 +13,14 @@ At the root of the _DbService_ project is file `seed.sql`. This has been generat
 Otherwise for those of you with Visual Studio->Package mangager, ensure you have a connection string setup in the WEbApi Project, _ScrapingBackend_ (See below), and run `Update-Database`
 
 # Application Settings
-The only setting required is `"DbConn"` (A blank entry is in the `appsettings.json`)
+`ScrapingBackend` project requires a `"DbConn"` entry in the appsettings. (A blank entry is in the `appsettings.json`)
 This is a the SQL Server connection string, ensure you have Multiple Active Result Sets (MARS) enabled in your connection string:
 `MultipleActiveResultSets=true `
+`scraping-frontend` project will require a new `.env.local` file with the following entry:
+
+`NEXT_PUBLIC_BACKEND_URL=https://localhost:7105/api/`
+
+This is the address of the `ScrapingBackend` project. This address will be different if you are *not* launching from Visual Studio. The possible entries can be found in `ScrapingBackend\Properties\launchSettings.json` file.
 
 # Overview
 
