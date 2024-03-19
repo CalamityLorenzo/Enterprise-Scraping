@@ -14,6 +14,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing", "Testing", "{073857D0-51F9-4E7D-9C04-F83FE092E3C9}"
 	ProjectSection(SolutionItems) = preProject
 		ScrapingBackend\ScrapingBackend.http = ScrapingBackend\ScrapingBackend.http
+		DbService\seed.sql = DbService\seed.sql
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BackEndTesting", "BackEndTesting\BackEndTesting.csproj", "{53ABAC7C-B667-4C7A-8E1B-02FD1F114984}"

@@ -1,5 +1,5 @@
 ﻿namespace ScrapingAppDefinitions.Models
 {
-    public  record BaseAppModel (Guid Id);
+    public abstract record BaseAppModel (Guid Id);
     
 }

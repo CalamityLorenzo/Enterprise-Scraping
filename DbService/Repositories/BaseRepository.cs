@@ -5,7 +5,7 @@ using ScrapingAppDefinitions.ResultType;
 
 namespace DbService.Repositories
 {
-    internal class BaseRepository<DbModel, AppModel>
+    internal abstract class BaseRepository<DbModel, AppModel>
                                       where DbModel : DbBaseModel
                                       where AppModel : BaseAppModel
     {
