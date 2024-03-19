@@ -89,9 +89,6 @@ namespace DbService.Repositories
             if (provider.Id == Guid.Empty) return new Result<AppModel>("Update Provider : Id cannot be empty");
             try
             {
-
-
-
                 var dbProvider = ConvertToDb(provider);
                 var dbEnt = _ctx.Set<DbModel>().Update(dbProvider);
                 await _ctx.SaveChangesAsync();

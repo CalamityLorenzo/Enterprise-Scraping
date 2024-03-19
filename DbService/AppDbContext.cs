@@ -5,10 +5,11 @@ using ScrapingAppDefinitions.Models;
 
 namespace DbService
 {
-    public  class AppDbContext : DbContext
+    public class AppDbContext : DbContext
     {
-        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { 
-        
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
+        {
+
         }
 
         internal DbSet<DbSearchProvider> SearchProviders { get; set; }
@@ -62,6 +63,52 @@ namespace DbService
             new SearchProviderTableBuilder().Configure(mb.Entity<DbSearchProvider>());
             new UserProfileTableBuilder().Configure(mb.Entity<DbUserProfile>());
             new UserSearchTableBuilder().Configure(mb.Entity<DbUserSearch>());
+            // Seeding
+
+            mb.Entity<SearchProvider>().HasData(new DbSearchProvider(
+                Id: Guid.NewGuid(),
+                Name: "Google",
+                Base64Image: "",
+                BaseUrl: "https://www.google.co.uk/search?num=100&q=\\{0\\}",
+                Created: DateTime.Now,
+                Updated: DateTime.Now
+                ));
+
+            mb.Entity<SearchProvider>().HasData(new DbSearchProvider(
+                Id: Guid.NewGuid(),
+                Name: "Dogpile",
+                Base64Image: "",
+                BaseUrl: "https://www.dogpile.com/serp?q=\\{0\\}",
+                Created: DateTime.Now,
+                Updated: DateTime.Now
+                ));
+            mb.Entity<SearchProvider>().HasData(new DbSearchProvider(
+                Id: Guid.NewGuid(),
+                Name: "Google (Alt)",
+                Base64Image: "",
+                BaseUrl: "https://www.google.co.uk/search?num=100&q=\\{0\\}",
+                Created: DateTime.Now,
+                Updated: DateTime.Now
+                ));
+
+            mb.Entity<UserProfile>().HasData(new DbUserProfile(
+                Id: Guid.NewGuid(),
+                Name: "Paul",
+                Created: DateTime.Now,
+                Updated: DateTime.Now
+                ));
+            mb.Entity<UserProfile>().HasData(new DbUserProfile(
+                Id: Guid.NewGuid(),
+                Name: "Sara",
+                Created: DateTime.Now,
+                Updated: DateTime.Now
+                ));
+            mb.Entity<UserProfile>().HasData(new DbUserProfile(
+                Id: Guid.NewGuid(),
+                Name: "Colin",
+                Created: DateTime.Now,
+                Updated: DateTime.Now
+                ));
         }
     }
 }

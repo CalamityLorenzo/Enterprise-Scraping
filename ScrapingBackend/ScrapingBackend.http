@@ -48,7 +48,7 @@ Accept: application/json
 
 
 ###
-@providerId = {{allProviders.response.body.$[3].id}}
+@providerId = {{allProviders.response.body.$[0].id}}
 GET {{ScrapingBackend_HostAddress}}/api/providers/{{providerId}}
 Accept: application/json
 
@@ -92,8 +92,7 @@ Content-Type: application/json
 
 
 # @name allSearchesForProfile
-GET {{ScrapingBackend_HostAddress}}/api/searches/{{profileId}}
-Accept: application/json
+GET {{ScrapingBackend_HostAddress}}/api/searches/{{profileId}} 
 
 
 ###
@@ -105,11 +104,8 @@ Content-Type: application/json
 
  {
     "profileId": "{{profileId}}",
-     "profileName": "",
-    "providerName": "",
-    "providerId": "39030d94-4ca9-44ee-9046-08dc460a6249",
-    "searchTerms": "Crash talk",
-    "positions": "9"
+    "providerId": "fd46effc-9b12-490d-fb23-08dc460a15bb",
+    "searchTerms": "land registry search"
   }
 ###
 @idToken = {{newSearches.response.body.id}}

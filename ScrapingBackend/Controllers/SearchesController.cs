@@ -8,8 +8,9 @@ namespace ScrapingBackend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class SearchesController(ILogger<SearchesController> logger, IDbService dbService) : ControllerBase
+    public class SearchesController(ILogger<SearchesController> logger, IDbService dbService, IScrapingService scraper) : ControllerBase
     {
+
         [HttpGet]
         [Route("{profileId}")]
         public async Task<IActionResult> GetSearchesForProfile(Guid profileId)
@@ -30,12 +31,15 @@ namespace ScrapingBackend.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add([FromBody] UserSearch userSearch)
+        public async Task<IActionResult> Add([FromBody] NewUserSearchModel userSearch)
         {
             try
             {
+
                 logger.LogInformation($"{nameof(SearchesController)} Add");
-                var result = await dbService.Searches.Create(userSearch);
+
+                var completeUserSearch = await scraper.Search(userSearch.ProfileId, userSearch.ProviderId, userSearch.SearchTerms);
+                var result = await dbService.Searches.Create(completeUserSearch);
                 if (result.IsSuccess)
                     return Ok(result.Value);
                 else

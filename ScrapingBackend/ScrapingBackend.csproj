@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DbService\DbService.csproj" />
+    <ProjectReference Include="..\ScrapingService\ScraperService.csproj" />
   </ItemGroup>
 
 </Project>

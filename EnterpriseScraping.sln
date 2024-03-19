@@ -18,6 +18,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing", "Testing", "{0738
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BackEndTesting", "BackEndTesting\BackEndTesting.csproj", "{53ABAC7C-B667-4C7A-8E1B-02FD1F114984}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScraperService", "ScrapingService\ScraperService.csproj", "{C493285D-749F-431F-83F8-ACB842D92077}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ExampleResults", "ExampleResults", "{9022BD07-5151-449D-8A60-E63DBFFF9E14}"
+	ProjectSection(SolutionItems) = preProject
+		duck2.html = duck2.html
+		DuckDuckGo.html = DuckDuckGo.html
+		Google.html = Google.html
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -46,6 +55,10 @@ Global
 		{53ABAC7C-B667-4C7A-8E1B-02FD1F114984}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{53ABAC7C-B667-4C7A-8E1B-02FD1F114984}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{53ABAC7C-B667-4C7A-8E1B-02FD1F114984}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C493285D-749F-431F-83F8-ACB842D92077}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C493285D-749F-431F-83F8-ACB842D92077}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C493285D-749F-431F-83F8-ACB842D92077}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C493285D-749F-431F-83F8-ACB842D92077}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

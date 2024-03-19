@@ -1,6 +1,7 @@
 
 using DbService;
 using Microsoft.EntityFrameworkCore;
+using ScraperService;
 using ScrapingAppDefinitions;
 
 namespace ScrapingBackend
@@ -16,13 +17,25 @@ namespace ScrapingBackend
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddHttpClient();
-            
+
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy(name: "localhost",
+                                  policy =>
+                                  {
+                                      policy.WithOrigins("http://localhost:3000"
+                                                          );
+                                      policy.WithHeaders("Origin", "X-Requested-With", "Content-Type", "Accept");
+                                  });
+            });
+
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
             builder.Services.AddDbContext<AppDbContext>(options => options.UseLazyLoadingProxies()
                                                                    .UseSqlServer(builder.Configuration["DbConn"]));
             builder.Services.AddScoped<IDbService, DbRepository>();
+            builder.Services.AddScoped<IScrapingService, ScrapingService>();
             if (!String.IsNullOrEmpty(builder.Configuration["ApplicationInsightsConn"]))
             {
                 builder.Logging.AddApplicationInsights(
@@ -40,7 +53,9 @@ namespace ScrapingBackend
                 app.UseSwaggerUI();
             }
 
+
             app.UseHttpsRedirection();
+            app.UseCors("localhost");
 
             app.UseAuthorization();
 
