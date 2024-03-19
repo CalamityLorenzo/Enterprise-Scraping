@@ -74,6 +74,11 @@ This is where I made my mistake, as I thought (very, very naively) it would be e
 Typescript -> React/NextJs with Tailwind CSS.
 First time I've used NExtJs, as I wanted to try out the ServerSide rendering features, but I didn't get to that.
 I used the React Context as Dependency Injector for the `BackendApiService.ts`, this automatically means that all views in that context must be client side views.
+The dropdowns to select profiles are their own components, but the interesting part is that bother `Profiles`, and `Providers` have an `onChanged` event that is subscribed to in the Page.tsx
+
+![alt text](image-2.png)
+
+This meant i did not need to have a callback in the components when their selected values changed, and all the logic could stay in the parenet component.
 
 
 # Testing Projects
