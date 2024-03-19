@@ -3,10 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace DbService.Migrations
 {
     /// <inheritdoc />
-    public partial class initcreate : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -67,6 +69,26 @@ namespace DbService.Migrations
                         column: x => x.ProfileId,
                         principalTable: "UserProfiles",
                         principalColumn: "Id");
+                });
+
+            migrationBuilder.InsertData(
+                table: "SearchProviders",
+                columns: new[] { "Id", "Base64Image", "BaseUrl", "Created", "Name", "Updated" },
+                values: new object[,]
+                {
+                    { new Guid("216a9c6a-e257-4a02-a05d-28457ee21a53"), "base64:eee", "https://www.dogpile.com/serp?q=\\{0\\}", new DateTime(2024, 3, 19, 10, 40, 54, 588, DateTimeKind.Local).AddTicks(5241), "Dogpile", new DateTime(2024, 3, 19, 10, 40, 54, 588, DateTimeKind.Local).AddTicks(5242) },
+                    { new Guid("5e4832e6-cfed-4a51-8a4e-60892761e06b"), "base64:eee", "https://www.google.co.uk/search?num=100&q=\\{0\\}", new DateTime(2024, 3, 19, 10, 40, 54, 588, DateTimeKind.Local).AddTicks(5157), "Google", new DateTime(2024, 3, 19, 10, 40, 54, 588, DateTimeKind.Local).AddTicks(5210) },
+                    { new Guid("d3416981-bd62-4d49-8f0e-5355e86d82f1"), "base64:eee", "https://www.google.co.uk/search?num=100&q=\\{0\\}", new DateTime(2024, 3, 19, 10, 40, 54, 588, DateTimeKind.Local).AddTicks(5257), "Google (Alt)", new DateTime(2024, 3, 19, 10, 40, 54, 588, DateTimeKind.Local).AddTicks(5258) }
+                });
+
+            migrationBuilder.InsertData(
+                table: "UserProfiles",
+                columns: new[] { "Id", "Created", "Name", "Updated" },
+                values: new object[,]
+                {
+                    { new Guid("088da3f6-8714-4f34-a078-87711c6825c2"), new DateTime(2024, 3, 19, 10, 40, 54, 588, DateTimeKind.Local).AddTicks(5299), "Sara", new DateTime(2024, 3, 19, 10, 40, 54, 588, DateTimeKind.Local).AddTicks(5300) },
+                    { new Guid("4dbb0b52-557f-40d3-bd8d-79b52463e6aa"), new DateTime(2024, 3, 19, 10, 40, 54, 588, DateTimeKind.Local).AddTicks(5314), "Colin", new DateTime(2024, 3, 19, 10, 40, 54, 588, DateTimeKind.Local).AddTicks(5315) },
+                    { new Guid("7bc7a2b6-1fcb-43e5-a27c-565b00146e7b"), new DateTime(2024, 3, 19, 10, 40, 54, 588, DateTimeKind.Local).AddTicks(5282), "Paul", new DateTime(2024, 3, 19, 10, 40, 54, 588, DateTimeKind.Local).AddTicks(5283) }
                 });
 
             migrationBuilder.CreateIndex(

@@ -65,45 +65,45 @@ namespace DbService
             new UserSearchTableBuilder().Configure(mb.Entity<DbUserSearch>());
             // Seeding
 
-            mb.Entity<SearchProvider>().HasData(new DbSearchProvider(
+            mb.Entity<DbSearchProvider>().HasData(new DbSearchProvider(
                 Id: Guid.NewGuid(),
                 Name: "Google",
-                Base64Image: "",
+                Base64Image: "base64:eee",
                 BaseUrl: "https://www.google.co.uk/search?num=100&q=\\{0\\}",
                 Created: DateTime.Now,
                 Updated: DateTime.Now
                 ));
 
-            mb.Entity<SearchProvider>().HasData(new DbSearchProvider(
+            mb.Entity<DbSearchProvider>().HasData(new DbSearchProvider(
                 Id: Guid.NewGuid(),
                 Name: "Dogpile",
-                Base64Image: "",
+                Base64Image: "base64:eee",
                 BaseUrl: "https://www.dogpile.com/serp?q=\\{0\\}",
                 Created: DateTime.Now,
                 Updated: DateTime.Now
                 ));
-            mb.Entity<SearchProvider>().HasData(new DbSearchProvider(
+            mb.Entity<DbSearchProvider>().HasData(new DbSearchProvider(
                 Id: Guid.NewGuid(),
                 Name: "Google (Alt)",
-                Base64Image: "",
+                Base64Image: "base64:eee",
                 BaseUrl: "https://www.google.co.uk/search?num=100&q=\\{0\\}",
                 Created: DateTime.Now,
                 Updated: DateTime.Now
                 ));
 
-            mb.Entity<UserProfile>().HasData(new DbUserProfile(
+            mb.Entity<DbUserProfile>().HasData(new DbUserProfile(
                 Id: Guid.NewGuid(),
                 Name: "Paul",
                 Created: DateTime.Now,
                 Updated: DateTime.Now
                 ));
-            mb.Entity<UserProfile>().HasData(new DbUserProfile(
+            mb.Entity<DbUserProfile>().HasData(new DbUserProfile(
                 Id: Guid.NewGuid(),
                 Name: "Sara",
                 Created: DateTime.Now,
                 Updated: DateTime.Now
                 ));
-            mb.Entity<UserProfile>().HasData(new DbUserProfile(
+            mb.Entity<DbUserProfile>().HasData(new DbUserProfile(
                 Id: Guid.NewGuid(),
                 Name: "Colin",
                 Created: DateTime.Now,

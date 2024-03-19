@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DbService.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240316185702_initcreate")]
-    partial class initcreate
+    [Migration("20240319104054_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,6 +21,9 @@ namespace DbService.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "8.0.3")
+                .HasAnnotation("Proxies:ChangeTracking", false)
+                .HasAnnotation("Proxies:CheckEquality", false)
+                .HasAnnotation("Proxies:LazyLoading", true)
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -56,6 +59,35 @@ namespace DbService.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("SearchProviders");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("5e4832e6-cfed-4a51-8a4e-60892761e06b"),
+                            Base64Image = "base64:eee",
+                            BaseUrl = "https://www.google.co.uk/search?num=100&q=\\{0\\}",
+                            Created = new DateTime(2024, 3, 19, 10, 40, 54, 588, DateTimeKind.Local).AddTicks(5157),
+                            Name = "Google",
+                            Updated = new DateTime(2024, 3, 19, 10, 40, 54, 588, DateTimeKind.Local).AddTicks(5210)
+                        },
+                        new
+                        {
+                            Id = new Guid("216a9c6a-e257-4a02-a05d-28457ee21a53"),
+                            Base64Image = "base64:eee",
+                            BaseUrl = "https://www.dogpile.com/serp?q=\\{0\\}",
+                            Created = new DateTime(2024, 3, 19, 10, 40, 54, 588, DateTimeKind.Local).AddTicks(5241),
+                            Name = "Dogpile",
+                            Updated = new DateTime(2024, 3, 19, 10, 40, 54, 588, DateTimeKind.Local).AddTicks(5242)
+                        },
+                        new
+                        {
+                            Id = new Guid("d3416981-bd62-4d49-8f0e-5355e86d82f1"),
+                            Base64Image = "base64:eee",
+                            BaseUrl = "https://www.google.co.uk/search?num=100&q=\\{0\\}",
+                            Created = new DateTime(2024, 3, 19, 10, 40, 54, 588, DateTimeKind.Local).AddTicks(5257),
+                            Name = "Google (Alt)",
+                            Updated = new DateTime(2024, 3, 19, 10, 40, 54, 588, DateTimeKind.Local).AddTicks(5258)
+                        });
                 });
 
             modelBuilder.Entity("DbService.DbModels.DbUserProfile", b =>
@@ -83,6 +115,29 @@ namespace DbService.Migrations
                     b.HasIndex("Name");
 
                     b.ToTable("UserProfiles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("7bc7a2b6-1fcb-43e5-a27c-565b00146e7b"),
+                            Created = new DateTime(2024, 3, 19, 10, 40, 54, 588, DateTimeKind.Local).AddTicks(5282),
+                            Name = "Paul",
+                            Updated = new DateTime(2024, 3, 19, 10, 40, 54, 588, DateTimeKind.Local).AddTicks(5283)
+                        },
+                        new
+                        {
+                            Id = new Guid("088da3f6-8714-4f34-a078-87711c6825c2"),
+                            Created = new DateTime(2024, 3, 19, 10, 40, 54, 588, DateTimeKind.Local).AddTicks(5299),
+                            Name = "Sara",
+                            Updated = new DateTime(2024, 3, 19, 10, 40, 54, 588, DateTimeKind.Local).AddTicks(5300)
+                        },
+                        new
+                        {
+                            Id = new Guid("4dbb0b52-557f-40d3-bd8d-79b52463e6aa"),
+                            Created = new DateTime(2024, 3, 19, 10, 40, 54, 588, DateTimeKind.Local).AddTicks(5314),
+                            Name = "Colin",
+                            Updated = new DateTime(2024, 3, 19, 10, 40, 54, 588, DateTimeKind.Local).AddTicks(5315)
+                        });
                 });
 
             modelBuilder.Entity("DbService.DbModels.DbUserSearch", b =>
