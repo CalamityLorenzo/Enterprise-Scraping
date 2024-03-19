@@ -53,14 +53,14 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen flex-col items-center p-24">
-      <h1>Search scraper</h1>
+      <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white" >Search scraper</h1>
       <BackendApiContext.Provider value={backendCtx}>
         <div className="grid max-cols-2">
-          <div className="col-span-2">Select Profile</div>
+          <div className="col-span-2 col-span-2 text-2xl font-extrabold dark:text-white">Select Profile</div>
           <div>
             <Profiles className="block w-full p-4 ps-10 text-md" />
           </div> <div></div>
-          <div className="col-span-2">Select Provider</div>
+          <div className="col-span-2 text-2xl font-extrabold dark:text-white"><p>Select Provider</p></div>
           <div><Providers className="block w-full p-4 ps-10 text-md" />
           </div> <div></div>
         </div>
@@ -71,7 +71,7 @@ export default function Home() {
           </form>
           : <></>}
         {displaySearchResult ?
-          <div className="min-w-8 mt-4 px-4 border dark:border-gray-600">
+          <div className="min-w-8 mt-4 px-4 font-semibold border bg-sky-500 border-cyan-600 backgroun text-white dark:text-white dark:border-gray-600">
             <h3>Result</h3>
             <div className="grid grid-flow-row-dense grid-cols-2">
               <div>Search Term</div>

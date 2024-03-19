@@ -69,7 +69,7 @@ namespace DbService
                 Id: Guid.NewGuid(),
                 Name: "Google",
                 Base64Image: "base64:eee",
-                BaseUrl: "https://www.google.co.uk/search?num=100&q=\\{0\\}",
+                BaseUrl: "https://www.google.co.uk/search?num=100&q={0}",
                 Created: DateTime.Now,
                 Updated: DateTime.Now
                 ));
@@ -78,7 +78,7 @@ namespace DbService
                 Id: Guid.NewGuid(),
                 Name: "Dogpile",
                 Base64Image: "base64:eee",
-                BaseUrl: "https://www.dogpile.com/serp?q=\\{0\\}",
+                BaseUrl: "https://www.dogpile.com/serp?q={0}",
                 Created: DateTime.Now,
                 Updated: DateTime.Now
                 ));
@@ -86,7 +86,7 @@ namespace DbService
                 Id: Guid.NewGuid(),
                 Name: "Google (Alt)",
                 Base64Image: "base64:eee",
-                BaseUrl: "https://www.google.co.uk/search?num=100&q=\\{0\\}",
+                BaseUrl: @"https://www.google.co.uk/search?num=100&q={0}",
                 Created: DateTime.Now,
                 Updated: DateTime.Now
                 ));

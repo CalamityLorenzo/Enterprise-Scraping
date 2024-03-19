@@ -4,6 +4,7 @@ using DbService;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DbService.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240319120830_seed2")]
+    partial class seed2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -60,30 +63,30 @@ namespace DbService.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("a35fbea2-e41e-4692-9071-1c8bb29a0365"),
+                            Id = new Guid("c8594551-2646-4472-a0da-ea6504c287a6"),
                             Base64Image = "base64:eee",
-                            BaseUrl = "https://www.google.co.uk/search?num=100&q={0}",
-                            Created = new DateTime(2024, 3, 19, 12, 10, 24, 346, DateTimeKind.Local).AddTicks(4841),
+                            BaseUrl = "https://www.google.co.uk/search?num=100&q={{0}}",
+                            Created = new DateTime(2024, 3, 19, 12, 8, 30, 145, DateTimeKind.Local).AddTicks(7918),
                             Name = "Google",
-                            Updated = new DateTime(2024, 3, 19, 12, 10, 24, 346, DateTimeKind.Local).AddTicks(4898)
+                            Updated = new DateTime(2024, 3, 19, 12, 8, 30, 145, DateTimeKind.Local).AddTicks(7974)
                         },
                         new
                         {
-                            Id = new Guid("c5951b98-e351-4561-9ea0-9fa2c59b23d4"),
+                            Id = new Guid("bd9c0848-3aa8-4b04-ba68-68dd984805fc"),
                             Base64Image = "base64:eee",
-                            BaseUrl = "https://www.dogpile.com/serp?q={0}",
-                            Created = new DateTime(2024, 3, 19, 12, 10, 24, 346, DateTimeKind.Local).AddTicks(4931),
+                            BaseUrl = "https://www.dogpile.com/serp?q={{0}}",
+                            Created = new DateTime(2024, 3, 19, 12, 8, 30, 145, DateTimeKind.Local).AddTicks(8008),
                             Name = "Dogpile",
-                            Updated = new DateTime(2024, 3, 19, 12, 10, 24, 346, DateTimeKind.Local).AddTicks(4933)
+                            Updated = new DateTime(2024, 3, 19, 12, 8, 30, 145, DateTimeKind.Local).AddTicks(8010)
                         },
                         new
                         {
-                            Id = new Guid("463981c8-fa6e-4ba2-9ab7-01f89d3b290c"),
+                            Id = new Guid("7ca1526f-4410-4fee-8ddf-457a480003de"),
                             Base64Image = "base64:eee",
-                            BaseUrl = "https://www.google.co.uk/search?num=100&q={0}",
-                            Created = new DateTime(2024, 3, 19, 12, 10, 24, 346, DateTimeKind.Local).AddTicks(4949),
+                            BaseUrl = "https://www.google.co.uk/search?num=100&q={{0}}",
+                            Created = new DateTime(2024, 3, 19, 12, 8, 30, 145, DateTimeKind.Local).AddTicks(8025),
                             Name = "Google (Alt)",
-                            Updated = new DateTime(2024, 3, 19, 12, 10, 24, 346, DateTimeKind.Local).AddTicks(4950)
+                            Updated = new DateTime(2024, 3, 19, 12, 8, 30, 145, DateTimeKind.Local).AddTicks(8026)
                         });
                 });
 
@@ -116,24 +119,24 @@ namespace DbService.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("c2d69d70-43e8-4c69-b15f-76e6d052d0d9"),
-                            Created = new DateTime(2024, 3, 19, 12, 10, 24, 346, DateTimeKind.Local).AddTicks(4979),
+                            Id = new Guid("3700b53a-c1e9-4303-b9b9-3b34e792eda5"),
+                            Created = new DateTime(2024, 3, 19, 12, 8, 30, 145, DateTimeKind.Local).AddTicks(8044),
                             Name = "Paul",
-                            Updated = new DateTime(2024, 3, 19, 12, 10, 24, 346, DateTimeKind.Local).AddTicks(4980)
+                            Updated = new DateTime(2024, 3, 19, 12, 8, 30, 145, DateTimeKind.Local).AddTicks(8045)
                         },
                         new
                         {
-                            Id = new Guid("d487ae02-e8b7-4b1c-8d3c-5802679dfe66"),
-                            Created = new DateTime(2024, 3, 19, 12, 10, 24, 346, DateTimeKind.Local).AddTicks(5005),
+                            Id = new Guid("5dd241c4-2d10-4ce3-810e-11e014c55fa0"),
+                            Created = new DateTime(2024, 3, 19, 12, 8, 30, 145, DateTimeKind.Local).AddTicks(8063),
                             Name = "Sara",
-                            Updated = new DateTime(2024, 3, 19, 12, 10, 24, 346, DateTimeKind.Local).AddTicks(5006)
+                            Updated = new DateTime(2024, 3, 19, 12, 8, 30, 145, DateTimeKind.Local).AddTicks(8064)
                         },
                         new
                         {
-                            Id = new Guid("4f8ea409-957b-4296-bf49-7bbce84903ea"),
-                            Created = new DateTime(2024, 3, 19, 12, 10, 24, 346, DateTimeKind.Local).AddTicks(5021),
+                            Id = new Guid("db4644d4-ace1-4088-af61-3f369ddb72ca"),
+                            Created = new DateTime(2024, 3, 19, 12, 8, 30, 145, DateTimeKind.Local).AddTicks(8079),
                             Name = "Colin",
-                            Updated = new DateTime(2024, 3, 19, 12, 10, 24, 346, DateTimeKind.Local).AddTicks(5022)
+                            Updated = new DateTime(2024, 3, 19, 12, 8, 30, 145, DateTimeKind.Local).AddTicks(8080)
                         });
                 });
 
